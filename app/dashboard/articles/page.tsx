@@ -1,3 +1,4 @@
+// app/dashboard/articles/page.tsx
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
@@ -21,7 +22,10 @@ export default function ArticlesPage() {
   const [tagFilter, setTagFilter] = useState('');
   const router = useRouter();
 
-  const fetchArticles = useCallback(async () => {
+  const fetchArticles = useCallback(async (
+      query: string = '',
+      tags: string = ''
+    ) => {
     setLoading(true);
     setError('');
     try {
@@ -32,11 +36,11 @@ export default function ArticlesPage() {
       }
 
       const params = new URLSearchParams();
-      if (searchQuery) {
-        params.append('query', searchQuery);
+      if (query) {
+        params.append('query', query);
       }
-      if (tagFilter) {
-        params.append('tags', tagFilter);
+      if (tags) {
+        params.append('tags', tags);
       }
 
       const response = await fetch(`/api/articles?${params.toString()}`, {
@@ -58,10 +62,10 @@ export default function ArticlesPage() {
     } finally {
       setLoading(false);
     }
-  }, [searchQuery, tagFilter, router]);
+  }, [router]);
 
   useEffect(() => {
-    fetchArticles();
+    fetchArticles(searchQuery, tagFilter);
   }, [fetchArticles]);
 
   const handleDelete = async (articleId: string) => {
@@ -97,6 +101,13 @@ export default function ArticlesPage() {
     }
   };
 
+  const handleClearFilters = () => {
+    setSearchQuery('');
+    setTagFilter('');
+    fetchArticles('', ''); 
+  };
+
+
   return (
     <div>
       <Header />
@@ -108,7 +119,7 @@ export default function ArticlesPage() {
           </Link>
         </div>
 
-        {/* Search and Filter */}
+
         <div className="mb-6 bg-white p-4 rounded shadow-md">
           <h2 className="text-xl font-semibold mb-3">Filter Articles</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -139,12 +150,23 @@ export default function ArticlesPage() {
               />
             </div>
           </div>
-          <button
-            onClick={fetchArticles}
-            className="mt-4 bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-          >
-            Apply Filters
-          </button>
+          <div className="flex space-x-2 mt-4">
+            <button
+              onClick={() => fetchArticles(searchQuery, tagFilter)}
+              className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline cursor-pointer"
+            >
+              Apply Filters
+            </button>
+          
+            {(searchQuery || tagFilter) && (
+              <button
+                onClick={handleClearFilters}
+                className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              >
+                Clear Filters
+              </button>
+            )}
+          </div>
         </div>
 
 
@@ -175,7 +197,7 @@ export default function ArticlesPage() {
                     </Link>
                     <button
                     onClick={() => handleDelete(article.id)}
-                    className="bg-red-500 hover:bg-red-700 text-white text-sm px-3 py-1 rounded"
+                    className="bg-red-500 hover:bg-red-700 text-white text-sm px-3 py-1 rounded cursor-pointer"
                     >
                     Delete
                     </button>

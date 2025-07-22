@@ -160,8 +160,8 @@ export default function ArticleDetailPage({ params }: { params: { id: string } }
             <h2 className="text-2xl font-semibold mb-3">AI Summary</h2>
             <button
               onClick={handleSummarize}
-              className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline disabled:opacity-50"
-              disabled={summarizing}
+              className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline disabled:opacity-50 cursor-pointer"
+              disabled={true}
             >
               {summarizing ? 'Generating Summary...' : 'Summarize Article'}
             </button>
