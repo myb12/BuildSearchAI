@@ -7,6 +7,7 @@ import Link from 'next/link';
 interface User {
   id: string;
   email: string;
+  name?: string;
 }
 
 export default function DashboardPage() {
@@ -41,7 +42,7 @@ export default function DashboardPage() {
     <div>
       <Header />
       <main className="container mx-auto p-4">
-        <h1 className="text-3xl font-bold mb-6">Welcome to your Dashboard, {user.email}!</h1>
+        <h1 className="text-3xl font-bold mb-6">Welcome to your Dashboard, {user.name}!</h1>
         <p className="text-lg mb-4">You can manage all your knowledgebase articles here.</p>
         <Link
           href="/dashboard/articles"

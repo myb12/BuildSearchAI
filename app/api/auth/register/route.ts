@@ -4,21 +4,9 @@ import prisma from '../../../lib/db';
 
 export async function POST(request: Request) {
   try {
-    const { email, password } = await request.json();
+    const { email, password, name } = await request.json();
 
-    /* 
-    console.log('Received registration request:');
-    console.log('Email:', email);
-    console.log('Password:', password);
-
-    return NextResponse.json(
-      { message: 'Request received and validated successfully (temporary response)' },
-      { status: 200 } 
-    );
-
-    */
-
-    if (!email || !password) {
+    if (!email || !password || !name) {
       return NextResponse.json({ message: 'Email and password are required' }, { status: 400 });
     }
 
@@ -37,6 +25,7 @@ export async function POST(request: Request) {
     // Create the user in the database
     const user = await prisma.user.create({
       data: {
+        name,
         email,
         passwordHash: hashedPassword,
       },

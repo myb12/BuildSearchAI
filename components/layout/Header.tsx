@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react';
 export default function Header() {
   const router = useRouter();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userEmail, setUserEmail] = useState('');
+  const [userName, setUserName] = useState('');
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -16,7 +16,7 @@ export default function Header() {
       setIsLoggedIn(true);
       try {
         const user = JSON.parse(storedUser);
-        setUserEmail(user.email);
+        setUserName(user.name);
       } catch (e) {
         console.error("Failed to parse user from localStorage", e);
         setIsLoggedIn(false);
@@ -30,7 +30,7 @@ export default function Header() {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     setIsLoggedIn(false);
-    setUserEmail('');
+    setUserName('');
     router.push('/login');
   };
 
@@ -44,7 +44,7 @@ export default function Header() {
           {isLoggedIn ? (
             <ul className="flex space-x-4 items-center">
               <li>
-                <span className="text-sm">Welcome, {userEmail}</span>
+                <span className="text-sm">Welcome, {userName}</span>
               </li>
               <li>
                 <Link href="/dashboard" className="hover:underline">Dashboard</Link>

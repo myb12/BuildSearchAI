@@ -11,15 +11,9 @@ export async function POST(request: Request) {
       return NextResponse.json({ message: 'Email and password are required' }, { status: 400 });
     }
 
-    // Find the user by email
     const user = await prisma.user.findUnique({
       where: { email },
     });
-
-    // return NextResponse.json(
-    //   { user },
-    //   { status: 200 } 
-    // );
 
     if (!user) {
       return NextResponse.json({ message: 'Invalid credentials' }, { status: 401 });
@@ -34,7 +28,7 @@ export async function POST(request: Request) {
 
     // Generate JWT
     const token = jwt.sign(
-      { userId: user.id, email: user.email },
+      { userId: user.id, email: user.email, name: user.name },
       process.env.JWT_SECRET!,
       { expiresIn: '1h' }
     );
