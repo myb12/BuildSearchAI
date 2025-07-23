@@ -2,8 +2,14 @@ import { NextRequest, NextResponse } from 'next/server';
 import { verifyToken } from '../../../lib/auth';
 import prisma from '../../../lib/db';
 
+interface RouteContext {
+  params: {
+    id: string;
+  };
+}
+
 // get single article
-export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(request: NextRequest, context: RouteContext) {
 
   const authResult = verifyToken(request);
 
@@ -12,7 +18,7 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
   }
 
   const userId = authResult.userId;
-  const articleId = params.id;
+  const articleId = context.params.id;
 
   try {
     const article = await prisma.article.findUnique({
@@ -35,7 +41,7 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
 }
 
 // delete article
-export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(request: NextRequest, context: RouteContext) {
   const authResult = verifyToken(request);
 
   if (authResult.error) {
@@ -43,7 +49,7 @@ export async function DELETE(request: NextRequest, { params }: { params: { id: s
   }
 
   const userId = authResult.userId;
-  const articleId = params.id; 
+  const articleId = context.params.id; 
 
   try {
     const existingArticle = await prisma.article.findUnique({
