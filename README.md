@@ -1,36 +1,101 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AI Knowledge Base Application
+
+## Project Overview
+
+The AI Knowledge Base is a full-stack web application designed to help users manage and summarize articles using Artificial Intelligence. Users can securely log in, view their articles, and leverage AI capabilities to generate concise summaries of article content.
+
+This project demonstrates a modern web development stack, including user authentication, API integration (with OpenAI for summarization), and responsive design.
+
+## Features
+
+* **User Authentication:** Secure login/logout functionality.
+* **Article Management:** View, manage, and detail articles.
+* **AI Summarization:** Generate concise summaries of article content using OpenAI's powerful language models.
+* **Responsive Design:** Optimized for both desktop and mobile viewing.
+
+## Technologies Used
+
+* **Frontend:**
+    * Next.js (React Framework)
+    * TypeScript
+    * Tailwind CSS (for styling)
+* **Backend:**
+    * Next.js API Routes
+    * TypeScript
+    * Node.js
+    * OpenAI API (for summarization)
+    * `jsonwebtoken` (for JWT handling)
+    * `bcryptjs` (for password hashing - *assuming this is used in auth*)
+    * Database (e.g., MongoDB with Mongoose, or Prisma, etc. - **Specify your actual database here if known**)
 
 ## Getting Started
 
-First, run the development server:
+Follow these steps to set up and run the project locally.
+
+### Prerequisites
+
+Before you begin, ensure you have the following installed on your system:
+
+* [Node.js](https://nodejs.org/en/) (LTS version recommended, e.g., v18.x or v20.x)
+* [npm](https://www.npmjs.com/) (comes with Node.js) or [Yarn](https://yarnpkg.com/)
+
+### 1. Clone the Repository
+
+First, clone the project repository to your local machine:
+
+```bash
+git clone <your-repository-url>
+cd ai-knowledgebase
+
+### 2. Install Dependencies
+
+Navigate to the project root directory and install all required Node.js dependencies:
+
+```bash
+npm install
+# or
+yarn install
+
+### 3. Environment Variables
+
+Create a `.env.local` file in the root of your project. This file will store sensitive information like API keys and database credentials.
+
+You will need the following variables:
+
+```env
+# JWT Secret for token signing/verification (e.g., a long random string)
+JWT_SECRET=your_jwt_secret_key_here
+
+# OpenAI API Key for summarization
+OPENAI_API_KEY=your_openai_api_key_here
+
+# Database Connection String (Example for MongoDB)
+# Replace with your actual database connection string
+DATABASE_URL=your_database_connection_string_here
+*Important: Replace the placeholder values with your actual keys and connection strings.*
+*Do not commit your .env.local file to version control.*
+
+### 4. Database Setup (Optional/If Applicable)
+
+If your project uses a database, you might need to run migrations or seed initial data.
+
+**For MongoDB/Mongoose:**  
+Typically no explicit migration is needed, but ensure your `DATABASE_URL` is correct.
+
+**For Prisma:**
+
+```bash
+npx prisma migrate dev --name init
+# Optional: Run the seed script if available
+# npx prisma db seed
+*Adjust based on your actual database ORM/setup.*
+
+### 5. Run the Development Server
+
+Once dependencies are installed and environment variables are set, you can start the development server:
 
 ```bash
 npm run dev
 # or
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+*The application will now be running at http://localhost:3000. Open this URL in your web browser to access the application.*
