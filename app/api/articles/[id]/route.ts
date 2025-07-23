@@ -2,14 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { verifyToken } from '../../../lib/auth';
 import prisma from '../../../lib/db';
 
-interface RouteContext {
-  params: {
-    id: string;
-  };
-}
-
 // get single article
-export async function GET(request: NextRequest, context: RouteContext) {
+export async function GET(request: NextRequest, context: any) {
 
   const authResult = verifyToken(request);
 
@@ -41,7 +35,7 @@ export async function GET(request: NextRequest, context: RouteContext) {
 }
 
 // delete article
-export async function DELETE(request: NextRequest, context: RouteContext) {
+export async function DELETE(request: NextRequest, context: any) {
   const authResult = verifyToken(request);
 
   if (authResult.error) {
