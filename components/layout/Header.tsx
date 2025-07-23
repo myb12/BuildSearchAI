@@ -42,7 +42,7 @@ export default function Header() {
         </Link>
         <nav>
           {isLoggedIn ? (
-            <ul className="flex space-x-4 items-center">
+            <ul className="block md:flex space-x-4 items-center">
               <li>
                 <span className="text-sm">Welcome, {userName}</span>
               </li>
