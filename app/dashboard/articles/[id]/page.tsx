@@ -61,7 +61,7 @@ export default function ArticleDetailPage({ params }: { params: Promise<{ id: st
   }, [id, router]);
 
   const handleSummarize = async () => {
-    if (!article) return;
+    if (!article || summarizing) return;
 
     setSummarizing(true);
     setSummary('');
@@ -160,8 +160,8 @@ export default function ArticleDetailPage({ params }: { params: Promise<{ id: st
             <h2 className="text-2xl font-semibold mb-3">AI Summary</h2>
             <button
               onClick={handleSummarize}
-              className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline disabled:opacity-50 cursor-pointer"
-              disabled={summarizing}
+              className={`bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline disabled:opacity-50 ${summary ? "" : "cursor-pointer"}`}
+              disabled={!!summary}
             >
               {summarizing ? 'Generating Summary...' : 'Summarize Article'}
             </button>
