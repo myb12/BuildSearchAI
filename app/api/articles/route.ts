@@ -46,7 +46,6 @@ export async function GET(request: NextRequest) {
       orderBy: { createdAt: 'desc' }, 
     });
 
-    console.log("================articles",articles)
     return NextResponse.json({ articles }, { status: 200 });
 
   } catch (error) {
