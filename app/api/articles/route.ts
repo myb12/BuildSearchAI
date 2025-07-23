@@ -27,9 +27,13 @@ export async function GET(request: NextRequest) {
       ];
     }
 
-    // Add tag filter
+    // Add tag filter 
     if (tagsParam) {
-      const tagsArray = tagsParam.split(',').map(tag => tag.trim()).filter(tag => tag !== '');
+      const tagsArray = tagsParam
+      .split(',')
+      .map(tag => tag.trim().toLowerCase())
+      .filter(tag => tag !== '');
+
       if (tagsArray.length > 0) {
         whereClause.tags = {
           hasEvery: tagsArray,
@@ -42,6 +46,7 @@ export async function GET(request: NextRequest) {
       orderBy: { createdAt: 'desc' }, 
     });
 
+    console.log("================articles",articles)
     return NextResponse.json({ articles }, { status: 200 });
 
   } catch (error) {
@@ -67,7 +72,11 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ message: 'Title and body are required' }, { status: 400 });
     }
 
-    const articleTags = Array.isArray(tags) ? tags.map(String) : typeof tags === 'string' ? tags.split(',').map(tag => tag.trim()).filter(tag => tag !== '') : [];
+    const articleTags = Array.isArray(tags)
+      ? tags.map(String).map(tag => tag.trim().toLowerCase()).filter(tag => tag !== '') 
+      : typeof tags === 'string'
+        ? tags.split(',').map(tag => tag.trim().toLowerCase()).filter(tag => tag !== '') 
+        : []; 
 
     const article = await prisma.article.create({
       data: {

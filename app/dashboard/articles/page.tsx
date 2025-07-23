@@ -184,7 +184,7 @@ export default function ArticlesPage() {
                 {article.tags && article.tags.length > 0 && (
                     <div className="mb-3 flex flex-wrap gap-2">
                     {article.tags.map((tag, index) => (
-                        <span key={index} className="bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded-full">
+                        <span key={index} className="bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded-full capitalize">
                         {tag}
                         </span>
                     ))}
