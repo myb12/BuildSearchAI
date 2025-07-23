@@ -99,3 +99,33 @@ npm run dev
 # or
 yarn dev
 *The application will now be running at http://localhost:3000. Open this URL in your web browser to access the application.*
+
+## Usage
+
+- **Register/Login:** Navigate to the login page (`/login`) to create a new account or log in with existing credentials.
+- **Dashboard:** After successful login, you will be redirected to the dashboard, where you can view your articles.
+- **View Article Details:** Click on an article title to view its full content.
+- **Summarize Article:** On the article detail page, click the "Summarize Article" button to generate an AI-powered summary.
+
+## API Endpoints
+
+A brief overview of the key API endpoints:
+
+| Method | Endpoint                        | Description                                |
+|--------|----------------------------------|--------------------------------------------|
+| POST   | `/api/auth/login`               | User login                                 |
+| POST   | `/api/auth/register`            | User registration                          |
+| GET    | `/api/articles`                 | Retrieve all articles for the user         |
+| GET    | `/api/articles/[id]`            | Retrieve a specific article by ID          |
+| POST   | `/api/articles/[id]/summarize`  | Generate an AI summary for an article      |
+
+## Deployment
+
+This Next.js application can be easily deployed to platforms like **Vercel**:
+
+1. Link your Git repository to [Vercel](https://vercel.com/).
+2. Vercel will automatically detect it's a Next.js project and deploy it.
+3. Set the required environment variables in Vercel's project settings:
+   - `JWT_SECRET`
+   - `OPENAI_API_KEY`
+   - `DATABASE_URL`
