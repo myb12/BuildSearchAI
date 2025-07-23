@@ -3,7 +3,7 @@ import { verifyToken } from '../../../lib/auth';
 import prisma from '../../../lib/db';
 
 // get single article
-export async function GET(request: NextRequest, { params }: any) {
+export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
 
   const authResult = verifyToken(request);
 
@@ -35,7 +35,7 @@ export async function GET(request: NextRequest, { params }: any) {
 }
 
 // delete article
-export async function DELETE(request: NextRequest, { params }: any) {
+export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
   const authResult = verifyToken(request);
 
   if (authResult.error) {
