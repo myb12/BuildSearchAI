@@ -13,7 +13,7 @@ interface Article {
   createdAt: string;
 }
 
-export default function ArticleDetailPage({ params }: { params: { id: string } }) {
+export default function ArticleDetailPage({ params }: any) {
   const { id } = params;
   const [article, setArticle] = useState<Article | null>(null);
   const [loading, setLoading] = useState(true);
