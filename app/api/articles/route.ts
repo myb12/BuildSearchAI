@@ -74,7 +74,7 @@ export async function POST(request: NextRequest) {
         title,
         body,
         tags: articleTags,
-        userId,
+        userId: userId!,
       },
     });
 

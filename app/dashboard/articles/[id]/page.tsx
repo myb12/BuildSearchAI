@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, use } from 'react';
 import { useRouter } from 'next/navigation';
 import Header from '@/components/layout/Header';
 import Link from 'next/link';
@@ -13,8 +13,8 @@ interface Article {
   createdAt: string;
 }
 
-export default function ArticleDetailPage({ params }: { params: { id: string } }) {
-  const { id } = params;
+export default function ArticleDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } =  use(params);
   const [article, setArticle] = useState<Article | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');

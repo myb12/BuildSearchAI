@@ -2,14 +2,14 @@ import { NextRequest, NextResponse } from 'next/server';
 import { verifyToken } from '../../../../lib/auth';
 
 // This is a MOCK summarization API.
-export async function POST(request: NextRequest, { params }: { params: { id: string } }) {
+export async function POST(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const authResult = verifyToken(request);
 
   if (authResult.error) {
     return NextResponse.json({ message: authResult.error }, { status: authResult.status });
   }
 
-  const articleId = params.id;
+  const articleId = (await params).id;
   const { articleBody } = await request.json(); 
 
   if (!articleBody) {
