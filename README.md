@@ -118,14 +118,3 @@ A brief overview of the key API endpoints:
 | GET    | `/api/articles`                 | Retrieve all articles for the user         |
 | GET    | `/api/articles/[id]`            | Retrieve a specific article by ID          |
 | POST   | `/api/articles/[id]/summarize`  | Generate an AI summary for an article      |
-
-## Deployment
-
-This Next.js application can be easily deployed to platforms like **Vercel**:
-
-1. Link your Git repository to [Vercel](https://vercel.com/).
-2. Vercel will automatically detect it's a Next.js project and deploy it.
-3. Set the required environment variables in Vercel's project settings:
-   - `JWT_SECRET`
-   - `OPENAI_API_KEY`
-   - `DATABASE_URL`
