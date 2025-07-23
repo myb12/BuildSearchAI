@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { verifyToken } from '../../../../lib/auth';
 
 // This is a MOCK summarization API.
-export async function POST(request: NextRequest, { params }: { params: { id: string } }) {
+export async function POST(request: NextRequest, { params }: any) {
   const authResult = verifyToken(request);
 
   if (authResult.error) {

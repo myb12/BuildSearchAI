@@ -3,7 +3,7 @@ import { verifyToken } from '../../../lib/auth';
 import prisma from '../../../lib/db';
 
 // get single article
-export async function GET(request: NextRequest, context: any) {
+export async function GET(request: NextRequest, { params }: any) {
 
   const authResult = verifyToken(request);
 
@@ -12,7 +12,7 @@ export async function GET(request: NextRequest, context: any) {
   }
 
   const userId = authResult.userId;
-  const articleId = context.params.id;
+  const articleId = params.id;
 
   try {
     const article = await prisma.article.findUnique({
@@ -35,7 +35,7 @@ export async function GET(request: NextRequest, context: any) {
 }
 
 // delete article
-export async function DELETE(request: NextRequest, context: any) {
+export async function DELETE(request: NextRequest, { params }: any) {
   const authResult = verifyToken(request);
 
   if (authResult.error) {
@@ -43,7 +43,7 @@ export async function DELETE(request: NextRequest, context: any) {
   }
 
   const userId = authResult.userId;
-  const articleId = context.params.id; 
+  const articleId = params.id; 
 
   try {
     const existingArticle = await prisma.article.findUnique({
